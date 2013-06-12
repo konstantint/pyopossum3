@@ -149,10 +149,10 @@ class Opossum:
             gene = relationship("Gene", backref='tfbss', primaryjoin="Gene.gene_id == ConservedTfbs.gene_id", foreign_keys="ConservedTfbs.gene_id")
             @property
             def absolute_start(self):
-                return self.gene.start-1 + self.start
+                return self.gene.start + self.start - 2
             @property
             def absolute_end(self):
-                return self.gene.start-1 + self.end
+                return self.gene.start + self.end - 1
         class ExternalGeneId(Base):
             __table__ = meta.tables['external_gene_ids']
             gene = relationship("Gene", backref='external_ids', primaryjoin="Gene.gene_id == ExternalGeneId.gene_id", foreign_keys="ExternalGeneId.gene_id")

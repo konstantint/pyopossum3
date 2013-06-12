@@ -21,10 +21,10 @@ Usage
 -----
 A usage example is the following::
 
-   from pyopossum3 import Opossum
-   o = Opossum("mysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human")
-   o.ConservedTfbs.query.first().gene
-   o.ExternalGeneId.query.filter(o.ExternalGeneId.external_id.in_(['TSPAN6'])).filter(o.ExternalGeneId.gene.has(chr='X')).first().gene
+   >>> from pyopossum3 import Opossum
+   >>> o = Opossum("mysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human")
+   >>> o.ConservedTfbs.query.first().gene
+   >>> o.ExternalGeneId.query.filter(o.ExternalGeneId.external_id.in_(['TSPAN6'])).filter(o.ExternalGeneId.gene.has(chr='X')).first().gene
    ... etc ...
 
 The second line creates a connection to the oPOSSUM server, and the third/fourth query the ``conserved_tfbss`` and ``external_gene_ids`` tables using SQLAlchemy syntax.
@@ -34,10 +34,20 @@ See `here <http://opossum.cisreg.ca/oPOSSUM3/download.html>`_ for instructions o
 
 You can get a feeling for the structure of the database by running the following::
 
-    for cls in o.all_orm_classes:
-        print cls.query.first()
+    >>> for cls in o.all_orm_classes:
+    >>>    print cls.query.first()
 
 The main table you should probably care about is ``ConservedTfbs``, which contains matches in the vicinity of each gene, annotated with match score and conservation level.
+
+An example using the ``ucscgenome`` package to verify that TFBS sequences are indeed correct::
+    
+    >>> c = o.ConservedTfbs.query.filter(o.ConservedTfbs.strand==1).first()
+    >>> c.gene.chr, c.absolute_start, c.absolute_end, c.seq
+    ('X', 99890235L, 99890253L, 'AGAAACATTGCATACTGC')
+    >>> from ucscgenome import Genome
+    >>> g = Genome('hg19')
+    >>> g['chrX'][99890235:99890253]
+    'AGAAACATTGCATACTGC'
 
 Note
 ----

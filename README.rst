@@ -39,6 +39,10 @@ You can get a feeling for the structure of the database by running the following
 
 The main table you should probably care about is ``ConservedTfbs``, which contains matches in the vicinity of each gene, annotated with match score and conservation level.
 
+Note
+----
+The author of this package is not associated with the creators and maintainers of the oPOSSUM3 tool.
+
 See also
 --------
 

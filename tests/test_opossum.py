@@ -6,11 +6,11 @@ http://kt.era.ee/
 
 Licensed under MIT license.
 '''
-import shutil, cPickle, os, pytest
+import shutil, os, pytest, sys, pickle
 from pyopossum3 import Opossum
 from sqlalchemy import create_engine
 
-TEST_URL = "mysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human"
+TEST_URL = "mysql+pymysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human"
 TEST_DIR = "tmp_TestOpossumCacheDir"
 
 def setup_module():
@@ -34,7 +34,7 @@ def test_cache():
     assert os.path.exists(TEST_DIR)
     assert os.path.exists(os.path.join(TEST_DIR, 'metadata.pickle'))
     with open(os.path.join(TEST_DIR, 'metadata.pickle'), 'rb') as f:
-        md_test = cPickle.load(f)
+        md_test = pickle.load(f)
     assert 'conserved_tfbss' in md_test
     
     # Check loading from cache

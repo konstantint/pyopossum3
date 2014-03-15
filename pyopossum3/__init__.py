@@ -22,7 +22,11 @@ Naturally, for heavy analyses, you are suggested to set up your own copy of the 
 See `here <http://opossum.cisreg.ca/oPOSSUM3/download.html>`_ for instructions on how to download the data.
 '''
 
-import os, cPickle
+import os, sys
+if sys.version_info >= (3, 0):
+    import pickle
+else:
+    import cPickle as pickle
 
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy import create_engine, MetaData
@@ -83,7 +87,7 @@ class Opossum:
             try:
                 if os.path.isfile(metadata_pickle):
                     with open(metadata_pickle, 'rb') as f:
-                        metadata = cPickle.load(f)
+                        metadata = pickle.load(f)
             except: # Failed to load file
                 pass
         if metadata is None:  # Try reflection
@@ -94,7 +98,7 @@ class Opossum:
                     if not os.path.isdir(cache_dir):
                         os.mkdir(cache_dir)
                     with open(metadata_pickle, 'wb') as f:
-                        cPickle.dump(metadata, f)
+                        pickle.dump(metadata, f)
                 except: # Failed to save for some reason
                     pass
         return metadata

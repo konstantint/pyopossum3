@@ -15,14 +15,14 @@ Dependencies
 ------------
 
 - ``SQLAlchemy``
-- ``MySQL-Python``
+- ``PyMySQL`` or any other `SQLAlchemy-compatible MySQL connector <http://docs.sqlalchemy.org/en/rel_0_9/dialects/mysql.html>`_.
 
 Usage
 -----
 A usage example is the following::
 
    >>> from pyopossum3 import Opossum
-   >>> o = Opossum("mysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human")
+   >>> o = Opossum("mysql+pymysql://opossum_r:@opossum.cmmt.ubc.ca/oPOSSUM3_human")
    >>> o.ConservedTfbs.query.first().gene
    >>> o.ExternalGeneId.query.filter(o.ExternalGeneId.external_id.in_(['TSPAN6'])).filter(o.ExternalGeneId.gene.has(chr='X')).first().gene
    ... etc ...

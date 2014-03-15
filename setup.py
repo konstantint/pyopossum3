@@ -8,10 +8,11 @@ class PyTest(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
+        import sys
         import pytest  # import here, cause outside the eggs aren't loaded
-        pytest.main(self.test_args)
+        sys.exit(pytest.main(self.test_args))
 
-version = '0.1'
+version = '0.2'
 
 setup(name='pyopossum3',
       version=version,
@@ -34,7 +35,7 @@ setup(name='pyopossum3',
       packages=find_packages(exclude=['tests', 'examples']),
       include_package_data=True,
       zip_safe=True,
-      install_requires=['SQLAlchemy', 'MySQL-python'],
+      install_requires=['SQLAlchemy', 'pymysql'],
       tests_require=['pytest'],
       cmdclass={'test': PyTest},
       entry_points=''

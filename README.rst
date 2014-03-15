@@ -2,6 +2,8 @@
 SQLAlchemy-based interface to the oPOSSUM3 transcription factor binding site database
 =====================================================================================
 
+.. image:: https://travis-ci.org/konstantint/pyopossum3.png?branch=master   :target: https://travis-ci.org/konstantint/pyopossum3
+
 The package provides an object-oriented access interface to the `oPOSSUM3 <http://opossum.cisreg.ca/oPOSSUM3/>`_ raw database tables.
 
 Installation
